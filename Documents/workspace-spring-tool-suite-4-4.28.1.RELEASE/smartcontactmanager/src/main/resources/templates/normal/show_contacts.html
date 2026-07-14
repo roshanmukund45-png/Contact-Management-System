@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="normal/base::Layout(~{::section})">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>show contact</title>
+</head>
+
+<body>
+	<section>
+		<div class="card mr-3 ml-3">
+			<div class="card-body">
+				<h1 class="text-center">Your Contacts</h1>
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">#ID</th>
+							<th scope="col">Name</th>
+							<th scope="col">Email</th>
+							<th scope="col">Phone</th>
+							<th scope="col">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="c : ${contacts}">
+							<th scope="row" th:text="${'SCMUSER'+c.Cid}">1</th>
+							<td>
+								<img src="" class="my_profile_picture" th:src="@{'/img/'+${c.image}}"
+									alt="profile photo" />
+								<span th:text="${c.name}"></span>
+							</td>
+							<td>
+								<a th:href="@{/user/{cid}/contact(cid=${c.Cid})}" th:text="${c.email}"></a>
+							</td>
+							<td th:text="${c.phone}"></td>
+							<td>
+								<a href="#" th:href="@{'/user/delete/'+${c.Cid}}"
+									class="btn btn-danger btn-sm">Delete</a>
+								<form method="post" th:action="@{'/user/update-contact/'+${c.Cid}}" class="mt-2">
+									<button type="submit" class="btn btn-primary btn-sm">Update</button>
+
+								</form>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<!--pagination-->
+				<nav aria-label="Page navigation">
+					<ul class="pagination justify-content-center">
+						<!-- Previous Page Link -->
+						<li class="page-item" th:classappend="${currentPage == 0} ? 'disabled' : ''">
+							<a class="page-link"
+								th:href="@{/user/show-contacts/__${currentPage > 0 ? currentPage - 1 : 0}__}"
+								aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+							</a>
+						</li>
+
+						<!-- Page Numbers -->
+						<li th:each="pageNum : ${pageNumbers}" class="page-item"
+							th:classappend="${currentPage == pageNum - 1} ? 'active' : ''">
+							<a class="page-link" th:href="@{/user/show-contacts/__${pageNum - 1}__}"
+								th:text="${pageNum}"></a>
+						</li>
+
+						<!-- Next Page Link -->
+						<li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled' : ''">
+							<a class="page-link"
+								th:href="@{/user/show-contacts/__${currentPage < totalPages - 1 ? currentPage + 1 : totalPages - 1}__}"
+								aria-label="Next">
+								<span aria-hidden="true">&raquo;</span>
+							</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</section>
+</body>
+
+</html>
