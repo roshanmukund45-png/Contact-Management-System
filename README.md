@@ -3,10 +3,10 @@ A full-stack Contact Management System built using Java, Spring Boot, Thymeleaf,
 ## Screenshots
 
 ### Home Page
-![Home Page](screenshots/home.png)
+![About Page](screenshots/about.png)
 
 ### About Page
-![About Page](screenshots/about.png)
+![Home Page](screenshots/home.png)
 
 ### Login Page
 ![Login Page](screenshots/login.png)
